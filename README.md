@@ -26,6 +26,8 @@ yarn add react-router-dom
 yarn add @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^6
 yarn add ethers wagmi 
 yarn add stylus stylus-loader
+yarn add mathjs dayjs -W
+yarn add @chakra-ui/icons react-icons -W 
 yarn add --dev babel-plugin-transform-react-pug babel-plugin-transform-react-jsx eslint eslint-plugin-react-pug // 註2
 mkdir hardhat
 cd hardhat 
@@ -71,11 +73,11 @@ yarn add {套件名稱}
 3. 共用的 css 放在 index.css or public/index.html。例如：bootstrap
 
 #### 補充
-**好用的 UI Compoenet：[資料來源](https://5xruby.tw/posts/react-design-systems)**
-經典的 React 實作版 [Material Design](https://mui.com/zh/)
-柔和、舒適的 [Chakra](https://chakra-ui.com/)、[GitHub](https://github.com/chakra-ui/chakra-ui/)
-高度客製化的選擇 [atomize](https://atomizecode.com/)
-IBM 風格 [Carbon](https://carbondesignsystem.com/components/accordion/usage/#behaviors)
+**好用的 UI Compoenet：[資料來源](https://5xruby.tw/posts/react-design-systems)**  
+經典的 React 實作版 [Material Design](https://mui.com/zh/)  
+柔和、舒適的 [Chakra](https://chakra-ui.com/)、[GitHub](https://github.com/chakra-ui/chakra-ui/)  
+高度客製化的選擇 [atomize](https://atomizecode.com/)  
+IBM 風格 [Carbon](https://carbondesignsystem.com/components/accordion/usage/#behaviors)  
 
 ### 合約
 
@@ -190,10 +192,9 @@ Solution：`frontend/package.json` 加入 `"homepage": "{路徑}"`。
 
 Solution：找不到檔案。因為編譯後的檔案有加 hash，因此需將 `static` 整包上傳。
 
-
 #### Hardhat v2.9.3 不支援 node v17
 
-Solution：版本將至 node v16
+Solution：版本將至 node v16  
 Link：https://github.com/NomicFoundation/hardhat/issues/2570
 
 ```shell
@@ -222,7 +223,7 @@ Solution：https://medium.com/hybrid-maker/bfc9b8bb0808
 1. Command + Shift + P -> 搜尋 setting.json
 2. `"terminal.integrated.shell.osx": "/bin/zsh",`
 
-接著 /.zshrc 加上任一個試試
-`source /Users/fangweiren/.bash_profile`
-`export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin`
-`export PATH=/opt/homebrew/bin:$PATH`
+接著 /.zshrc 加上任一個試試  
+`source /Users/fangweiren/.bash_profile`  
+`export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin`  
+`export PATH=/opt/homebrew/bin:$PATH`  
