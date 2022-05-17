@@ -1,9 +1,7 @@
 import './Header.styl';
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
-  extendTheme, // https://chakra-ui.com/docs/styled-system/features/color-mode
-  ChakraProvider,
   useColorMode,
   useColorModeValue,
   Box,
@@ -21,10 +19,21 @@ import {
   BsFillMoonFill,
 } from "react-icons/bs";
 
+let ifInit = true;
+
 function Header() {
   
   // Chakra Color Mode
   const { colorMode, toggleColorMode } = useColorMode();
+
+  useEffect(() => {
+    console.log(ifInit, colorMode)
+    if (ifInit && colorMode == 'light') {
+      ifInit = false;
+      toggleColorMode();
+      console.log(colorMode)
+    }
+  }, [colorMode]);
 
   // Chakra Color by Mode https://chakra-ui.com/docs/styled-system/features/color-mode#usecolormodevalue
   const headerColor = useColorModeValue('gray.800', 'gray.800');

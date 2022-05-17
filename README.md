@@ -4,39 +4,6 @@
 
 scaffold-lionvincent-master-v1.0.0
 
-文森的獨特開發框架，專為開發區塊鏈 APP 使用。
-
-目前適用範圍為 Ethereum，今後將會持續擴充至常用公鏈（例如：Solona？）
-
-
-### 開發框架的創作步驟（若想直接使用的話可跳過此部分）
-
-```shell
-// v1.0.0 使用
-yarn init
-yarn install
-yarn cache clean
-yarn create react-app fronrend
-cd fronrend 
-yarn eject // 註1
-cd ../
-yarn add hardhat
-yarn add bootstrap
-yarn add react-router-dom
-yarn add @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^6
-yarn add ethers wagmi 
-yarn add stylus stylus-loader
-yarn add mathjs dayjs -W
-yarn add @chakra-ui/icons react-icons -W 
-yarn add --dev babel-plugin-transform-react-pug babel-plugin-transform-react-jsx eslint eslint-plugin-react-pug // 註2
-mkdir hardhat
-cd hardhat 
-npx hardhat 
-
-// 今後升級 v2.0.0 使用
-yarn redux
-```
-
 > #### 註解
 > 1. 在 Create React App 中修改 Webpack 設定，以調整 Webpack Alias 為例｜https://snh90100.medium.com/59fd9eeeffe7
 > 2. 在 Create React App 加入 Pug 的步驟｜https://stackoverflow.com/questions/56513346/how-to-use-pug-templating-engine-with-reactjs

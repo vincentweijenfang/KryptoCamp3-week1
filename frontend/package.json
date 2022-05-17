@@ -153,5 +153,8 @@
       "transform-react-pug",
       "transform-react-jsx"
     ]
+  },
+  "resolutions": {
+    "@chakra-ui/color-mode": "<1.2.0"
   }
 }

@@ -21,6 +21,7 @@ import {
 import {
   extendTheme, // https://chakra-ui.com/docs/styled-system/features/color-mode
   ChakraProvider,
+  DarkMode,
   useColorMode,
   useStyleConfig,
   ComponentStyleConfig,
@@ -52,6 +53,7 @@ import {
   MdAddCircle,
 } from "react-icons/md";
 
+
 // 區塊鏈的常數們（待處理）
 import { 
   NETWORKS, 
@@ -65,8 +67,8 @@ import {
   Provider, 
   chain, 
   defaultChains,
-  useConnect, 
-  useAccount,
+  // useConnect, 
+  // useAccount,
 } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
@@ -74,7 +76,7 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 
 // Router 指向的頁面
 import { 
-  XXXX
+  // XXXX
   // Homepage
 } from "./Pages"; 
 
@@ -86,14 +88,7 @@ import {
 import { floor, bignumber, numeric, number, format } from "mathjs";
 import * as dayjs from 'dayjs';
 
-
 // https://chakra-ui-git-fix-typescript-autocomplete.chakra-ui.vercel.app/docs/theming/advanced
-
-extendTheme({
-  initialColorMode: 'dark', // light dark
-  useSystemColorMode: false,
-  // components,
-})
 
 console.log('%cHomework Week1', 'background: #436822; padding: .125em .4em; color: white; font-size: 32px; font-weight: 600')
 
@@ -167,9 +162,12 @@ function App() {
   }
 
   const handleDeleteEvent = index => {
-    setTodoList(oldList => oldList.splice(index, 1))
+    setTodoList((oldList) => {
+      const newList = JSON.parse(JSON.stringify(oldList))
+      newList.splice(index, 1)
+      return newList
+    })
   }
-  
   
   return pug`
     // ████████  ██     ██  ███████ 
@@ -182,99 +180,97 @@ function App() {
 
     //- 引入 wagmi
     Provider(
-      autoConnect
-      connectors=connectors
-      provider=provider
+      
     )
       //- 引入 Chakra UI
-      ChakraProvider
-        .App.d-flex.flex-column
-          Header
-          main.flex-fill
+      .App.d-flex.flex-column
+        Header
+        main.flex-fill
 
-            //- Chakra UI Heading
-            // ███████  ██████  ███████  ██      ██
-               ██      ██    ██ ██    ██ ████  ████
-               ███████ ██    ██ ███████  ██ ████ ██
-               ██      ██    ██ ██   ██  ██  ██  ██
-               ██       ██████  ██    ██ ██      ██
+          //- Chakra UI Heading
+          //  ███████  ██████  ███████  ██      ██
+              ██      ██    ██ ██    ██ ████  ████
+              ███████ ██    ██ ███████  ██ ████ ██
+              ██      ██    ██ ██   ██  ██  ██  ██
+              ██       ██████  ██    ██ ██      ██
               之後來試試：使用第三方函式庫 Formik 進行表單的驗證 
               https://ithelp.ithome.com.tw/articles/10273080
-            .container-lg.px-4.py-5
-              Heading.mb-5(as="h1" size="2xl" fontWeight="100") Homework Week 1
-              .content
-                Heading.mb-4(as="h3" size="lg" color="" fontWeight="300") 增加事件
-                FormControl.mb-2(isInvalid=eventTitle === '')
-                  FormLabel.text-nowrap.mb-2 事件標題
-                  Input(
-                    id="title"
-                    value=eventTitle
-                    onChange=handleEventTitleChange
-                    placeholder="請盡情輸入！"
-                  )
-                  if eventTitle === ''
-                    FormErrorMessage.text-start 請輸入事件標題
-                  else
-                    FormHelperText.text-start ：）
-                FormControl.mb-2(isInvalid=eventDescrip === '')
-                  FormLabel.text-nowrap.mb-2 事件敘述（可輸入無限多字）
-                  Textarea(
-                    id="descrip"
-                    value=eventDescrip
-                    onChange=handleEventDescripChange
-                    placeholder="請盡情輸入！"
-                  )
-                  if eventDescrip === ''
-                    FormErrorMessage.text-start 請輸入事件敘述
-                  else
-                    FormHelperText.text-start ：）
-                .d-flex.flex-column.align-items-center
-                  Button(
-                    colorScheme="teal"
-                    onClick=handleAddEvent
-                  ) 新增事件
-                    Icon.ms-2(as=MdAddCircle w=6 h=6)
-                         
-            // ██      ██  █████ ████████
-               ██      ██ ██        ██
-               ██      ██ ███████   ██
-               ██      ██      ██   ██
-               ███████ ██ ██████    ██    
-            .container-lg.px-4.py-5
-              .content
-                Heading.mb-4(as="h3" size="lg" color="" fontWeight="300") 事件清單
-                List.d-flex.flex-column-reverse
-                  each item, index in todoList
-                    ListItem.my-5(key=index)
-                      .d-flex.justify-content-between.align-items-center
-                        .d-flex.flex-column.align-items-start.pr-3
-                          Tag.mb-2
-                            |#{dayjs(item.timecode).format('YYYY MM/DD')}
-                            |#{dayjs(item.timecode).format('HH:mm:ss')}
-                          Heading(as="h4" size="xl" color="teal" fontWeight="300") 
-                            |#{item.title}
-                        //- IconButton 無法使用。透過 source code 發現是 Button Based。
-                        Button(
-                          adding="0"
-                          borderRadius="full"
-                          variant="outline" 
-                          colorScheme="teal"
-                          size="md" 
-                          onClick=() => {
-                            handleDeleteEvent(index)
-                          }
-                        ) 
-                          Icon(as=MdDelete w=6 h=6)
-                      Text.mt-3.text-start(
-                        size="xl" fontWeight="400"
-                        sx={
-                          whiteSpace: 'pre-line'
+          .container-lg.px-4.py-5
+            Heading.mb-5(as="h1" size="2xl" fontWeight="100") Homework Week 1
+            .content
+              Heading.mb-4(as="h3" size="lg" color="" fontWeight="300") 增加事件
+              FormControl.mb-2(isInvalid=eventTitle === '')
+                FormLabel.text-nowrap.mb-2 事件標題
+                Input(
+                  id="title"
+                  value=eventTitle
+                  onChange=handleEventTitleChange
+                  placeholder="請盡情輸入！"
+                )
+                if eventTitle === ''
+                  FormErrorMessage.text-start 請輸入事件標題
+                else
+                  FormHelperText.text-start ：）
+              FormControl.mb-2(isInvalid=eventDescrip === '')
+                FormLabel.text-nowrap.mb-2 事件敘述（可輸入無限多字）
+                Textarea(
+                  id="descrip"
+                  value=eventDescrip
+                  onChange=handleEventDescripChange
+                  placeholder="請盡情輸入！"
+                )
+                if eventDescrip === ''
+                  FormErrorMessage.text-start 請輸入事件敘述
+                else
+                  FormHelperText.text-start ：）
+              .d-flex.flex-column.align-items-center
+                Button(
+                  colorScheme="teal"
+                  onClick=handleAddEvent
+                ) 新增事件
+                  Icon.ms-2(as=MdAddCircle w=6 h=6)
+                      
+          //  ██      ██  █████ ████████
+              ██      ██ ██        ██
+              ██      ██ ███████   ██
+              ██      ██      ██   ██
+              ███████ ██ ██████    ██    
+          .container-lg.px-4.py-5
+            .content
+              Heading.mb-4(as="h3" size="lg" color="" fontWeight="300") 事件清單
+              List.d-flex.flex-column-reverse
+                each item, index in todoList
+                  ListItem.my-5(key=index)
+                    .d-flex.justify-content-between.align-items-center
+                      .d-flex.flex-column.align-items-start.pr-3
+                        Tag.mb-2
+                          |#{dayjs(item.timecode).format('YYYY MM/DD')}
+                          |#{dayjs(item.timecode).format('HH:mm:ss')}
+                        Heading(as="h4" size="xl" color="teal" fontWeight="300") 
+                          |#{item.id}. #{index}
+                          |#{item.title}
+                      //- IconButton 無法使用。透過 source code 發現是 Button Based。
+                      Button(
+                        adding="0"
+                        borderRadius="full"
+                        variant="outline" 
+                        colorScheme="teal"
+                        size="md" 
+                        onClick=() => {
+                          handleDeleteEvent(index)
                         }
                       ) 
-                        |#{item.descrip}
-                    if (index !== todoList.length - 1)
-                      Divider
-          // Footer
+                        Icon(as=MdDelete w=6 h=6)
+                    Text.mt-3.text-start(
+                      size="xl" fontWeight="400"
+                      sx={
+                        whiteSpace: 'pre-line'
+                      }
+                    ) 
+                      |#{item.descrip}
+                  if (index !== todoList.length - 1)
+                    Divider
+        // Footer
           
     // █████████ ██     ██ ███████
        ██        ███    ██ ██     ██
