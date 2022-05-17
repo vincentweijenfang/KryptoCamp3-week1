@@ -242,25 +242,26 @@ function App() {
                 each item, index in todoList
                   ListItem.my-5(key=index)
                     .d-flex.justify-content-between.align-items-center
-                      .d-flex.flex-column.align-items-start.pr-3
-                        Tag.mb-2
+                      .d-flex.flex-column.align-items-start.flex-fill.pr-3
+                        Tag.mb-3
                           |#{dayjs(item.timecode).format('YYYY MM/DD')}
                           |#{dayjs(item.timecode).format('HH:mm:ss')}
-                        Heading(as="h4" size="xl" color="teal" fontWeight="300") 
-                          |#{item.id}. #{index}
-                          |#{item.title}
-                      //- IconButton 無法使用。透過 source code 發現是 Button Based。
-                      Button(
-                        adding="0"
-                        borderRadius="full"
-                        variant="outline" 
-                        colorScheme="teal"
-                        size="md" 
-                        onClick=() => {
-                          handleDeleteEvent(index)
-                        }
-                      ) 
-                        Icon(as=MdDelete w=6 h=6)
+                        .d-flex.justify-content-between.align-self-stretch
+                          Heading.text-start.pr-3(as="h4" size="xl" color="teal" fontWeight="300")
+                            |#{item.id} - 
+                            |#{item.title}
+                          //- IconButton 無法使用。透過 source code 發現是 Button Based。
+                          Button(
+                            adding="0"
+                            borderRadius="full"
+                            variant="outline" 
+                            colorScheme="teal"
+                            size="md" 
+                            onClick=() => {
+                              handleDeleteEvent(index)
+                            }
+                          ) 
+                            Icon(as=MdDelete w=6 h=6)
                     Text.mt-3.text-start(
                       size="xl" fontWeight="400"
                       sx={
